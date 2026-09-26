@@ -1,1 +1,157 @@
 @import "tailwindcss";
+
+/* Ported from the Co-Me template (Tailwind v3 config + globals.css) to Tailwind v4. */
+@theme {
+  --font-primary: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* #region  /**=========== Primary Color (sky) =========== */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+  --color-primary-950: #082f49;
+  /* #endregion  /**======== Primary Color =========== */
+
+  --color-dark: #222222;
+  --color-ours: #e1eaf2; /* paper "oursshade" table highlight */
+  --color-gold: #d8b35c; /* paper "Ours" trajectory colour */
+
+  --animate-flicker: flicker 3s linear infinite;
+  --animate-shimmer: shimmer 1.3s linear infinite;
+
+  @keyframes flicker {
+    0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+      opacity: 0.99;
+      filter: drop-shadow(0 0 1px rgba(252, 211, 77)) drop-shadow(0 0 15px rgba(245, 158, 11))
+        drop-shadow(0 0 1px rgba(252, 211, 77));
+    }
+    20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+      opacity: 0.4;
+      filter: none;
+    }
+  }
+  @keyframes shimmer {
+    0% { background-position: -700px 0; }
+    100% { background-position: 700px 0; }
+  }
+}
+
+@layer base {
+  /* #region  /**=========== Typography =========== */
+  .h0 {
+    @apply font-primary text-3xl font-bold md:text-5xl;
+  }
+  h1,
+  .h1 {
+    @apply font-primary text-2xl font-bold md:text-4xl;
+  }
+  h2,
+  .h2 {
+    @apply font-primary text-xl font-bold md:text-3xl;
+  }
+  h3,
+  .h3 {
+    @apply font-primary text-lg font-bold md:text-2xl;
+  }
+  h4,
+  .h4 {
+    @apply font-primary text-base font-bold md:text-lg;
+  }
+  body,
+  .p {
+    @apply font-primary text-sm md:text-base;
+  }
+  /* #endregion  /**======== Typography =========== */
+
+  .layout {
+    /* 1100px */
+    max-width: 68.75rem;
+    @apply mx-auto w-11/12;
+  }
+
+  .wide-layout {
+    @apply mx-auto w-11/12;
+  }
+
+  .bg-dark a.custom-link {
+    @apply border-gray-200 hover:border-gray-200/0;
+  }
+
+  /* Class to adjust with sticky footer */
+  .min-h-main {
+    @apply min-h-[calc(100vh-56px)];
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@utility scrollbar-dark {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) #222222;
+  &::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: #222222;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.35);
+    border-radius: 9999px;
+    border: 2px solid #222222;
+  }
+}
+
+@utility animated-underline {
+  background-image: linear-gradient(#33333300, #33333300),
+    linear-gradient(to right, var(--color-primary-400), var(--color-primary-500));
+  background-size: 100% 2px, 0 2px;
+  background-position: 100% 100%, 0 100%;
+  background-repeat: no-repeat;
+  @media (prefers-reduced-motion: no-preference) {
+    transition: 0.3s ease;
+    transition-property: background-size, color, background-color, border-color;
+  }
+  &:hover,
+  &:focus-visible {
+    background-size: 0 2px, 100% 2px;
+  }
+}
+
+/* Results tables */
+@utility results-table {
+  @apply w-full border-collapse text-xs md:text-sm tabular-nums;
+  & th,
+  & td {
+    @apply px-2 py-1.5 text-right whitespace-nowrap;
+  }
+  & th {
+    @apply font-semibold text-gray-700;
+  }
+  & td:first-child,
+  & th:first-child {
+    @apply text-left;
+  }
+}
+
+@utility scrollbar-light {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+  &::-webkit-scrollbar {
+    height: 0.5rem;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.25);
+    border-radius: 9999px;
+  }
+}

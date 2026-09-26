@@ -92,6 +92,9 @@ export default function TsneExplorer({ base = '/tsne' }: { base?: string }) {
     clearTimer();
     setPopup(null);
     setHover(null);
+    // seed the animation here (event handler) rather than inside the effect,
+    // so the effect only schedules frames and never calls setState synchronously
+    setAnim({ from: current, to: key, t: 0 });
     setPending({ from: current, to: key });
     setLayoutKey(key);
   };
@@ -106,7 +109,6 @@ export default function TsneExplorer({ base = '/tsne' }: { base?: string }) {
       if (t < 1) raf = requestAnimationFrame(step);
       else setPending(null);
     };
-    setAnim({ from, to, t: 0 });
     raf = requestAnimationFrame(step);
     return () => cancelAnimationFrame(raf);
   }, [pending]);
